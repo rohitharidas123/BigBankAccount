@@ -1,4 +1,3 @@
-
 public class CheckingAccount extends BankAccount
 {
 	//fields
@@ -23,13 +22,23 @@ public class CheckingAccount extends BankAccount
 		TRANSACTION_FEE = tf;
 		FREE_TRANS = freeTrans;
 	}
-	
+	/**
+	 * 
+	 * @param n: name of the account holder
+	 * @param odf: constant overdraft fee
+	 * @param tf: constant transaction fee
+	 * @param freeTrans: allows free transaction
+	 */
 	public CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
 		this(n, 0, odf, tf, freeTrans);
 	}
 	
 	//methods
+	/**
+	 * extension of deposit method
+	 * includes transaction fee if user exceeds number of free transactions
+	 */
 	public void deposit(double amt)
 	{
 		if(amt>=0)
@@ -43,6 +52,13 @@ public class CheckingAccount extends BankAccount
 			throw new IllegalArgumentException();
 	}
 	
+	/**
+	 * extension of withdraw method
+	 * includes transaction fee if user exceeds number of free transactions
+	 * not allowed to withdraw negative amount
+	 * only allowed to withdraw if balance is positive
+	 * if withdrawing more than balance, over draft fee will be charged
+	 */
 	public void withdraw(double amt)
 	{
 		if(super.getBalance()<0 || amt<0)
@@ -58,6 +74,10 @@ public class CheckingAccount extends BankAccount
 		}
 	}
 	
+	/**
+	 * transfers money from one account to the other as long as they are under the same name
+	 * cannot transfer more than initial balance
+	 */
 	public void transfer(BankAccount other, double amt)
 	{
 		if(other.getName() == super.getName())
@@ -76,10 +96,12 @@ public class CheckingAccount extends BankAccount
 		}
 	}
 	
+	/**
+	 * resets number of transactions to 0 at end of month
+	 */
 	public void endofMonthUpdate()
 	{
 		numTransactions = 0;
 	}
 
 }
-
