@@ -75,12 +75,17 @@ public class BankAccountMain
 							String transResponse = in.nextLine();
 						if ((transResponse.equals("y")) || (transResponse.equals("Y")))
 						{
-							System.out.println("Would you like to withdraw, deposit, transfer, or get an account number? (W/D/T/N)");
+							System.out.println("Would you like to withdraw, deposit, transfer, or get an account number? (W/D/T/G)");
 							String option = in.nextLine();
-							try
+							if(!option.equals("w") && !option.equals("W") && !option.equals("d") && !option.equals("D") && !option.equals("t") && !option.equals("T") && !option.equals("g") && !option.equals("G"))
 							{
-							if((option.equals("W")) || (option.equals("w")))
+								System.out.println("You typed something invalid. Please enter W, D, T, or G to conduct a transaction.");
+								option = in.nextLine();
+							}
+							switch(option)
 							{
+							case "w":
+							{							
 								System.out.println("What account number would you like to withdraw money from?");
 								String acctNum = in.next();
 								in.nextLine();
@@ -92,30 +97,72 @@ public class BankAccountMain
 								}
 								if(isAcctNum(acctNum))
 								{
-								for(BankAccount account : Accounts)
-								{
-									if(account.getAcctNum() == Integer.parseInt(acctNum))
+									for(BankAccount account : Accounts)
 									{
-										System.out.println("How much money would you like to withdraw?");
-										double amt = in.nextDouble();
-										try
+										if(account.getAcctNum() == Integer.parseInt(acctNum))
 										{
-											account.withdraw(amt);
+											System.out.println("How much money would you like to withdraw?");
+											double amt = in.nextDouble();
+											try
+											{
+												account.withdraw(amt);
+											}
+											catch(IllegalArgumentException e)
+											{
+												System.out.println("Transaction not authorized. Please enter another amount :");
+												amt = in.nextDouble();
+											}
 										}
-										catch(IllegalArgumentException e)
+										else
 										{
-											System.out.println("Transaction not authorized");
+											System.out.println("There are no accounts under that number. Please enter another number: ");
+											acctNum = in.next();
 										}
 									}
-									else
-									{
-										System.out.println("There are no accounts under that number. Please enter another number: ");
-										acctNum = in.next();
-									}
 								}
-								}
+								break;
 							}
-							else if((option.equals("D")) || (option.equals("d")))
+							
+							case  "W":
+							{							
+								System.out.println("What account number would you like to withdraw money from?");
+								String acctNum = in.next();
+								in.nextLine();
+								while(!isAcctNum(acctNum))
+								{
+									System.out.println("Account does not exist.  Please enter again: ");
+									acctNum = in.next();
+									in.nextLine();
+								}
+								if(isAcctNum(acctNum))
+								{
+									for(BankAccount account : Accounts)
+									{
+										if(account.getAcctNum() == Integer.parseInt(acctNum))
+										{
+											System.out.println("How much money would you like to withdraw?");
+											double amt = in.nextDouble();
+											try
+											{
+												account.withdraw(amt);
+											}
+											catch(IllegalArgumentException e)
+											{
+												System.out.println("Transaction not authorized. Please enter another amount :");
+												amt = in.nextDouble();
+											}
+										}
+										else
+										{
+											System.out.println("There are no accounts under that number. Please enter another number: ");
+											acctNum = in.next();
+										}
+									}
+								}
+								break;
+							}
+							
+							case "d":
 							{
 								System.out.println("What account number would you like to deposit money into?");
 								String acctNum = in.next();
@@ -128,30 +175,72 @@ public class BankAccountMain
 								}
 								if(isAcctNum(acctNum))
 								{
-								for(BankAccount account : Accounts)
-								{
-									if(account.getAcctNum() == Integer.parseInt(acctNum))
+									for(BankAccount account : Accounts)
 									{
-										System.out.println("How much money would you like to deposit?");
-										double amt = in.nextDouble();
-										try
+										if(account.getAcctNum() == Integer.parseInt(acctNum))
 										{
-											account.deposit(amt);
+											System.out.println("How much money would you like to deposit?");
+											double amt = in.nextDouble();
+											try
+											{
+												account.deposit(amt);
+											}
+											catch(IllegalArgumentException e)
+											{
+												System.out.println("Transaction not authorized. Please enter amount again: ");
+												amt = in.nextDouble();
+											}
 										}
-										catch(IllegalArgumentException e)
+										else
 										{
-											System.out.println("Transaction not authorized");
+											System.out.println("There are no accounts under that number. Please enter another number: ");
+											acctNum = in.next();
 										}
 									}
-									else
-									{
-										System.out.println("There are no accounts under that number. Please enter another number: ");
-										acctNum = in.next();
-									}
 								}
-								}
+								break;
 							}
-							else if((option.equals("T")) || (option.equals("t")))
+							
+							case "D":
+							{
+								System.out.println("What account number would you like to deposit money into?");
+								String acctNum = in.next();
+								in.nextLine();
+								while(!isAcctNum(acctNum))
+								{
+									System.out.println("Account does not exist.  Please enter again: ");
+									acctNum = in.next();
+									in.nextLine();
+								}
+								if(isAcctNum(acctNum))
+								{
+									for(BankAccount account : Accounts)
+									{
+										if(account.getAcctNum() == Integer.parseInt(acctNum))
+										{
+											System.out.println("How much money would you like to deposit?");
+											double amt = in.nextDouble();
+											try
+											{
+												account.deposit(amt);
+											}
+											catch(IllegalArgumentException e)
+											{
+												System.out.println("Transaction not authorized. Please enter amount again: ");
+												amt = in.nextDouble();
+											}
+										}
+										else
+										{
+											System.out.println("There are no accounts under that number. Please enter another number: ");
+											acctNum = in.next();
+										}
+									}
+								}
+								break;
+							}
+							
+							case "t":
 							{
 								System.out.println("What account number would you like to transfer money from?");
 								String acctNum1 = in.next();
@@ -173,26 +262,65 @@ public class BankAccountMain
 								{
 									if(account.getAcctNum() == Integer.parseInt(acctNum1) && account.getAcctNum() == Integer.parseInt(acctNum2))
 									{
-								System.out.println("How much money would you like to transfer?");
-								double amt = in.nextDouble();
-								try
-								{
-									account.transfer(acctNum2, amt);
+										System.out.println("How much money would you like to transfer?");
+										double amt = in.nextDouble();
+										try
+										{
+											account.transfer(account, amt);
+										}
+										catch(IllegalArgumentException e)
+										{
+											System.out.println("Transaction not authorized");
+										}
+									}
 								}
-								catch(IllegalArgumentException e)
-								{
-									System.out.println("Transaction not authorized");
-								}
+								break;
 							}
-							else if((option.equals("N")) || (option.equals("n")))
+							case "T":
+							{
+								System.out.println("What account number would you like to transfer money from?");
+								String acctNum1 = in.next();
+								System.out.println("What account number would you like to transfer money to?");
+								String acctNum2 = in.next();
+								while(!isAcctNum(acctNum1))
+								{
+									System.out.println("The first account number you entered does not exist.  Please enter again: ");
+									acctNum1 = in.next();
+									in.nextLine();
+								}
+								while(!isAcctNum(acctNum2))
+								{
+									System.out.println("The second account number you entered does not exist.  Please enter again: ");
+									acctNum2 = in.next();
+									in.nextLine();
+								}
+								for(BankAccount account : Accounts)
+								{
+									if(account.getAcctNum() == Integer.parseInt(acctNum1) && account.getAcctNum() == Integer.parseInt(acctNum2))
+									{
+										System.out.println("How much money would you like to transfer?");
+										double amt = in.nextDouble();
+										try
+										{
+											account.transfer(account, amt);
+										}
+										catch(IllegalArgumentException e)
+										{
+											System.out.println("Transaction not authorized");
+										}
+									}
+								}
+								break;
+							}
+							
+							case "g":
 							{
 								System.out.println("Under what name is the account number you are looking for?");
 								String name = in.nextLine();
-								for(BankAccount account : Accounts)
+								for(BankAccount account1 : Accounts)
 									{
-										if(name.equals(account.getName()))
-											System.out.println("The account number is " + account.getAcctNum());
-										
+										if(name.equals(account1.getName()))
+											System.out.println(account1);
 										else
 										{
 											System.out.println("There are no accounts under that name. Please enter another name: ");
@@ -200,19 +328,26 @@ public class BankAccountMain
 										}
 									}
 							}
-							else
+							
+							case "G":
 							{
-								System.out.println("You typed something invalid. Please enter W, D, T, or N to conduct a transaction.");
-								option = in.nextLine();
+								System.out.println("Under what name is the account number you are looking for?");
+								String name = in.nextLine();
+								for(BankAccount account1 : Accounts)
+								{
+									if(name.equals(account1.getName()))
+										System.out.println(account1);
+									else
+									{
+									System.out.println("There are no accounts under that name. Please enter another name: ");
+									name = in.nextLine();
+									}
+								}	
 							}
+							break;
 						}
-						catch(IllegalArgumentException e)
-							{
-								System.out.println("Transaction not authorized.");
-							}
-						}
-						
-						else if ((transResponse.equals("n")) || (transResponse.equals("N")))
+					}
+						if ((transResponse.equals("n")) || (transResponse.equals("N")))
 						{
 							System.out.println("Would you like to terminate the program? (Y/N)");
 							{
@@ -231,8 +366,16 @@ public class BankAccountMain
 						else
 						{
 							System.out.println("You typed something invalid. Please enter Y or N.");
-							String programResponse = in.nextLine();
+							transResponse = in.nextLine();
 						}
-			}	
+			
+					}
+
+					else
+					{
+						System.out.println("You typed something invalid. Please enter Y or N.");
+						accountResponse =in.nextLine();
+					}
+		}
 	}
 }
