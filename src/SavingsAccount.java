@@ -75,7 +75,7 @@ public class SavingsAccount extends BankAccount
 	 */
 	public void transfer(BankAccount other, double amt)
 	{
-		if(other.getName().equals(super.getName()))
+		if(other.getName() == super.getName())
 		{
 			if(amt>super.getBalance())
 				throw new IllegalArgumentException();
