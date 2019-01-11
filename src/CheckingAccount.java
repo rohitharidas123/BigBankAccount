@@ -37,7 +37,8 @@ public class CheckingAccount extends BankAccount
 	//methods
 	/**
 	 * extension of deposit method
-	 * includes transaction fee if user exceeds number of free transactions
+	 * withdraws transaction fee if user exceeds number of free transactions
+	 * amount still must be at least 0
 	 */
 	public void deposit(double amt)
 	{
@@ -54,9 +55,9 @@ public class CheckingAccount extends BankAccount
 	
 	/**
 	 * extension of withdraw method
-	 * includes transaction fee if user exceeds number of free transactions
-	 * not allowed to withdraw negative amount
-	 * only allowed to withdraw if balance is positive
+	 * withdraws transaction fee if user exceeds number of free transactions
+	 * amount withdrawn must be at least 0
+	 * only allowed to withdraw if initial balance is positive
 	 * if withdrawing more than balance, over draft fee will be charged
 	 */
 	public void withdraw(double amt)
@@ -80,7 +81,7 @@ public class CheckingAccount extends BankAccount
 	 */
 	public void transfer(BankAccount other, double amt)
 	{
-		if(other.getName() == super.getName())
+		if(other.getName().equals(super.getName()))
 		{
 			if(amt>super.getBalance())
 				throw new IllegalArgumentException();

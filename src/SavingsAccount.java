@@ -48,7 +48,7 @@ public class SavingsAccount extends BankAccount
 	
 	/**
 	 * withdraws money as long as amount is positive and withdrawing the money will not result in a negative balance
-	 * if withdrawing money results in balance being less than the minimum balance, fee will be charged
+	 * if withdrawing money results in balance being less than the minimum balance, fee will be withdrawn
 	 */
 	public void withdraw(double amt)
 	{
@@ -75,7 +75,7 @@ public class SavingsAccount extends BankAccount
 	 */
 	public void transfer(BankAccount other, double amt)
 	{
-		if(other.getName() == super.getName())
+		if(other.getName().equals(super.getName()))
 		{
 			if(amt>super.getBalance())
 				throw new IllegalArgumentException();

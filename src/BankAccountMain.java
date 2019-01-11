@@ -39,6 +39,7 @@ public class BankAccountMain
 							System.out.println("Please enter the name for your account");
 							String sName = in.nextLine();
 							Accounts.add(new SavingsAccount(sName, 0, RATE, MIN_BAL, MIN_BAL_FEE));
+							System.out.println("Account successfully created.");
 						}
 						
 						else if(acctTypeResponse.equals("C") || acctTypeResponse.equals("c"))
@@ -46,6 +47,7 @@ public class BankAccountMain
 							System.out.println("Please enter the name for your account");
 							String cName = in.nextLine();
 							Accounts.add(new CheckingAccount(cName, 0, OVER_DRAFT_FEE, MIN_BAL_FEE, FREE_TRANSACTIONS));
+							System.out.println("Account successfully created.");
 						}
 						
 						else
@@ -164,9 +166,8 @@ public class BankAccountMain
 									{
 										for(BankAccount account : Accounts)
 										{
-											while(!(account.getAcctNum() == Integer.parseInt(acctNum)))
+											while(account.getAcctNum() != Integer.parseInt(acctNum))
 											{
-												System.out.println("hello " + Integer.parseInt(acctNum));
 												System.out.println("There are no accounts under that number. Please enter another number: ");
 												acctNum = in.next();
 											}
@@ -195,7 +196,7 @@ public class BankAccountMain
 									in.nextLine();
 									while(!isAcctNum(acctNum))
 									{
-										System.out.println("Account does not exist.  Please enter again: ");
+										System.out.println("Account does not exist.  Please enter another number: ");
 										acctNum = in.next();
 										in.nextLine();
 									}
@@ -203,7 +204,6 @@ public class BankAccountMain
 									{
 										for(BankAccount account : Accounts)
 										{
-											//while(!(account.getAcctNum() == Integer.parseInt(acctNum)))
 											if(account.getAcctNum() != Integer.parseInt(acctNum))
 											{
 												System.out.println("There are no accounts under that number. Please enter another number: ");
@@ -224,6 +224,11 @@ public class BankAccountMain
 												}
 											}
 										}
+									}
+									else
+									{
+										System.out.println("You typed something invalid. Please enter another number: ");
+										acctNum = in.nextLine();
 									}
 									break;
 								}
@@ -332,7 +337,7 @@ public class BankAccountMain
 												name = in.nextLine();
 											}
 											if(name.equals(account1.getName()))
-												System.out.println(account1);
+												System.out.println(account1 );
 										}
 								}
 								break;

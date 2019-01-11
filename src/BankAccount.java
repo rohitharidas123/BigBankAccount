@@ -1,5 +1,5 @@
 /**
- * 
+ * Bank Account Project
  * @author Rohit Haridas
  * Pd 6
  *AP Comp Sci
@@ -80,7 +80,7 @@ public abstract class BankAccount
 	public abstract void endofMonthUpdate();
 	
 	/**
-	 * 
+	 * takes money out of one account and adds it to another account
 	 * @param other: represents bank account that will be receiving the transferred money
 	 * @param amt : amount that will be transfered
 	 */
@@ -99,7 +99,6 @@ public abstract class BankAccount
 	}
 	
 	/**
-	 * 
 	 * @return: returns bank account number
 	 */
 	public int getAcctNum()
